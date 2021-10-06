@@ -1,10 +1,10 @@
 from flask_restx import Namespace, Resource
 
-Crawl = Namespace(name="Crawl", description="Crawl API")
+Product = Namespace(name="Product", description="Product API")
 
 
-@Crawl.route('')
-class Crawler(Resource):
+@Product.route('')
+class Products(Resource):
     def get(self):
         return {}, 200
 
