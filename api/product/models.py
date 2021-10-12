@@ -15,7 +15,7 @@ class Product(db.Model):
         self.title = title
         self.picture = picture
         self.link = link
-        self.picture = picture
+        self.price = price
 
     def __repr__(self):
         return '<id {}>'.format(self.name)
