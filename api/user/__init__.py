@@ -1,4 +1,4 @@
-from flask_restx import Resource, Api, Namespace
+from flask_restx import Resource, Namespace
 
 User = Namespace(name='Users', description="User API")
 
