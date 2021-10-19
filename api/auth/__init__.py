@@ -32,7 +32,7 @@ class AuthRegister(Resource):
         else:
             users[email] = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())  # save password
             return {
-                       'Authorization': jwt.encode({'email': email}, "secret", algorithm="HS256").decode("UTF-8")  #
+                       'Authorization': jwt.encode({'email': email}, "secret", algorithm="HS256").decode("UTF-8")
                    }, 200
 
 
