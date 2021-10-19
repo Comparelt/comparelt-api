@@ -2,12 +2,17 @@
 
 ## How to run
     pip install -r requirements.txt
-
-    Run api/__ init __.py
+    
+    flask db init    
+    flask db migrate // Only for first time
+    flask db upgrade // After migrate 
+    
+    Run api/app.py
 
 ## Description Detail
 
-- __ init __.py: API code is added in here.
+- app.py: API code is added in here.
+- __init __.py: DataBase models imported on here. 
 - models.py: DataBase ORM code is added in here.
 
 ## TODO List
