@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from api.user import User
 from api.crawling import Crawl
 from api.auth import Auth
-from api.product import Product
+from api.product.controller import Product
 
 config = configparser.ConfigParser()
 config.read('../config.ini')
