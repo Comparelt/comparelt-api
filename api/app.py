@@ -3,9 +3,9 @@ from flask import Flask
 from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
-from api.user.controller import User
-from api.crawling import Crawl
 from api.auth.controller import Auth
+from api.user.controller import User
+from api.crawling.controller import Crawl
 from api.product.controller import Product
 
 config = configparser.ConfigParser()
