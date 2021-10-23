@@ -3,7 +3,7 @@ from flask import Flask
 from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
-from api.user import User
+from api.user.controller import User
 from api.crawling import Crawl
 from api.auth.controller import Auth
 from api.product.controller import Product
