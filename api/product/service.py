@@ -5,4 +5,4 @@ class ProductService:
     @staticmethod
     def findWithTitle(item):
         from api.product import models
-        return models.Product.query.filter_by(title=item).all()
+        return models.Product.query.filter_by(title=item).all(), 200
