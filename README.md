@@ -11,9 +11,11 @@
 
 ## Description Detail
 
-- app.py: API code is added in here.
-- __init __.py: DataBase models imported on here. 
+- app.py: Run API Server code is added in here.
+- api /__init __.py: DataBase models imported on here. 
 - models.py: DataBase ORM code is added in here.
+- service.py: API Logic code is added in here.
+- controller.py: API endPoint is import in here.
 
 ## TODO List
 
