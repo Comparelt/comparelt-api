@@ -10,12 +10,21 @@
     Run api/app.py
 
 ## Description Detail
+Refactored Every Part to MVC ( Model, View, Controller ) Pattern.  
+
+Enter api directory and there will be 4 directories which is Auth(Login / SignUo Part),   
+Crawling, Product, User, and __ _init_ __.py, app.py. 
 
 - app.py: Run API Server code is added in here.
-- api /__init __.py: DataBase models imported on here. 
+- api /__init __.py: DataBase models imported on here.
+  
+In User, and Product directory, there are models.py, service.py, controller.py  
 - models.py: DataBase ORM code is added in here.
 - service.py: API Logic code is added in here.
 - controller.py: API endPoint is import in here.
+
+Other directories( Auth, Crawling ) use model of User, and Product.  
+So they shouldn't have models.py
 
 ## TODO List
 
@@ -24,5 +33,10 @@
 - [x] User DataBase Model
 - [x] Auth(Login / SignUp) API
 - [ ] User API
+  - [ ] Get User Data
+  - [ ] Edit User Data
+  - [ ] Resign user
 - [ ] Crawling API & Crawling Function
 - [ ] Product API
+    - [ ] Valid duplicate Product by Title
+    - [ ] Get Product Data
