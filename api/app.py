@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from api.user import User
 from api.crawling import Crawl
-from api.auth import Auth
+from api.auth.controller import Auth
 from api.product.controller import Product
 
 config = configparser.ConfigParser()
