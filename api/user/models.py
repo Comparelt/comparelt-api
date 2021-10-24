@@ -1,19 +1,17 @@
 from api import db
+from api.common.ORMModel import ORMModel
 
 
-class User(db.Model):
+class User(ORMModel):
     __tablename__ = 'user'
 
     # declare User Table Columns
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String)
-    email = db.Column(db.String)
+    username = db.Column(db.String, unique=True)
+    email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
 
-    def __init__(self, username, email, password):
-        self.username = username
-        self.email = email
-        self.password = password
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     def __repr__(self):
         return '<id {}>'.format(self.id)

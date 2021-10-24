@@ -1,24 +1,21 @@
 from api import db
+from api.common.ORMModel import ORMModel
 
 
-class Product(db.Model):
+class Product(ORMModel):
     __tablename__ = 'product'
 
     # declare Product Table Columns
-    id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String())
     picture = db.Column(db.String())
     link = db.Column(db.String())
     price = db.Column(db.String())
 
-    def __init__(self, title, picture, link, price):
-        self.title = title
-        self.picture = picture
-        self.link = link
-        self.price = price
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     def __repr__(self):
-        return '<id {}>'.format(self.name)
+        return '<id {}>'.format(self.id)
 
     def serialize(self):
         return {
