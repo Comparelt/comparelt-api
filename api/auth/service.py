@@ -11,9 +11,9 @@ class AuthService:
         from api.user.models import User
         database_user: User = User.query.filter_by(email=email).first()
         if database_user :
-            result = bcrypt.checkpw(password, database_user.password)
+            result = bcrypt.checkpw(password, database_user.password.encode())
             if result:
-                return AuthService.login(database_user.id)
+                return AuthService.login(database_user.id), 200
             else:
                 return {"message": "UnAuthorized"}, 401
         else:
@@ -36,4 +36,4 @@ class AuthService:
         User.session.add(user)
         User.session.commit()
         signed_user_id = user.id
-        return AuthService.login(signed_user_id), {"message" : "Success"}, 200
+        return AuthService.login(signed_user_id), {"message": "Success"}, 200
