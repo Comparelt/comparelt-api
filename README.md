@@ -13,9 +13,9 @@
 Refactored Every Part to MVC ( Model, View, Controller ) Pattern.  
 
 Enter api directory and there will be 4 directories which is Auth(Login / SignUo Part),   
-Crawling, Product, User, and __ _init_ __.py, app.py. 
+Crawling, Product, User, test, and __ _init_ __.py, app.py. 
 
-- app.py: Run API Server code is added in here.
+- comparelt.py: Run API Server code is added in here.
 - api /__init __.py: DataBase models imported on here.
   
 In User, and Product directory, there are models.py, service.py, controller.py  
@@ -25,6 +25,8 @@ In User, and Product directory, there are models.py, service.py, controller.py
 
 Other directories( Auth, Crawling ) use model of User, and Product.  
 So they shouldn't have models.py
+
+test / test.py is unittest code for checking API function.
 
 ## TODO List
 
