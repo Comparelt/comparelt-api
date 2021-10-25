@@ -1,4 +1,8 @@
 import configparser
+import os
+import sqlite3
+from contextlib import closing
+
 from flask import Flask
 from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
@@ -8,10 +12,33 @@ from api.user.controller import User
 from api.crawling.controller import Crawl
 from api.product.controller import Product
 
+DATABASE = '/tmp/test.db'
+DEBUG = True
+SECRET_KEY = 'development key'
+USERNAME = 'admin'
+PASSWORD = 'default'
+
+basedir = os.path.dirname(os.path.abspath(__file__))  # To Solve Directory Issue
+os.chdir(basedir)
+
 config = configparser.ConfigParser()
 config.read('../config.ini')
 
 app = Flask(__name__)
+app.config.from_object(__name__)
+
+
+def connect_db():
+    return sqlite3.connect(app.config['DATABASE'])
+
+
+def init_db():
+    with closing(connect_db()) as db_test:
+        with app.open_resource('test.sql') as f:
+            db_test.cursor().executescript(f.read().decode('utf-8'))
+        db_test.commit()
+
+
 app.config['SQLALCHEMY_DATABASE_URI'] = config['DEFAULT']['SQLALCHEMY_DATABASE_URI']  # To Connect to DB
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # To avoid FSADeprecationWarning
 db = SQLAlchemy(app)
