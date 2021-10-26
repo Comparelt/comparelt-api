@@ -1,6 +1,7 @@
 from api import db
 from api.common.ORMModel import ORMModel
 
+#authorize a user for login & sign up part
 
 class User(ORMModel):
     __tablename__ = 'user'
