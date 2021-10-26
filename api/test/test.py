@@ -4,8 +4,7 @@ import unittest
 from api import comparelt
 
 
-class TestCase(unittest.TestCase):
-
+class AuthCase(unittest.TestCase):
     def setUp(self):
         self.db, comparelt.app.config['DATABASE'] = tempfile.mkstemp()
         comparelt.app.config['TESTING'] = True
@@ -13,25 +12,25 @@ class TestCase(unittest.TestCase):
         comparelt.init_db()
 
     def signup(self, username, email, password):
-        return self.app.post('/signup', data=dict(
-            username=username,
-            email=email,
-            password=password
-        ), follow_redirects=True)
+        return self.app.post('/auth/signup', data={
+            "email": email,
+            "password": password,
+            "username": username,
+        })
+
+    def test_a_signup(self):
+        user_test = self.signup('dku', 'dku@test.com', 'dku@20')
+        print(user_test)  # Need to add success case
 
     def login(self, email, password):
-        return self.app.post('/login', data=dict(
-            email=email,
-            password=password
-        ), follow_redirects=True)
+        return self.app.post('/auth/login', data={
+            "email": email,
+            "password": password,
+        })
 
-    def test_signup(self):
-        user_test = self.signup('dku', 'dku@test.com', 'dku@20')
-        print(user_test)
-
-    def test_login(self):
+    def test_b_login(self):
         user_test = self.login('dku@test.com', 'dku@20')
-        print(user_test)
+        print(user_test) # Need to add success case
 
     def tearDown(self):
         os.close(self.db)
