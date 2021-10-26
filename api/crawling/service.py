@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import json
 
 
 class CrawlingService:
@@ -21,14 +22,14 @@ class CrawlingService:
         title_google = item_google.find(
             'div', class_='sh-np__product-title translate-content').text
         picture_google = item_google.img['src']
-        #a_google = item_google.find('a', class_='shntl sh-np__click-target')['href']
+        # a_google = item_google.find('a', class_='shntl sh-np__click-target')['href']
         a_google = item_google.find('a')['href']
         price_google = item_google.find('b', class_='translate-content').text
 
         # print(title_google)
         # print(picture_google)
         # print(a_google)
-        # print(price_google)
+        print("price google: " + price_google)
 
         # =========== COUPANG ===========
         link_coupang = 'https://www.coupang.com/np/search?component=&q=' + \
@@ -46,12 +47,12 @@ class CrawlingService:
             item_coupang.find('a', class_='search-product-link')['href']
         price_coupang = item_coupang.find('strong', class_='price-value').text
 
-        # print(title_coupang)
+        print("title"+title_coupang)
         # print(picture_coupang)
         # print(a_coupang)
         # print(price_coupang)
 
-        # =========== AMAZON ===========
+        # =========== SSG ===========
         search_query_ssg = search_input.replace(" ", '%20')
         link_ssg = 'http://www.ssg.com/search.ssg?target=all&query=' + \
             search_query_ssg
@@ -71,7 +72,30 @@ class CrawlingService:
         price_ssg = item_ssg.find('div', class_='cunit_price notranslate').find(
             'em', class_='ssg_price').text
 
-        # print(title_ssg)
+        print("title ssg" + title_ssg)
         # print(picture_ssg)
         # print(a_ssg)
         # print(price_ssg)
+
+        data = {
+            "google": {
+                "title": title_google,
+                "picture": picture_google,
+                "link": a_google,
+                "price": price_google
+            },
+            "coupang": {
+                "title": title_coupang,
+                "picture": picture_coupang,
+                "link": a_coupang,
+                "price": price_coupang
+            },
+            "ssg": {
+                "title": title_ssg,
+                "picture": picture_ssg,
+                "link": a_ssg,
+                "price": price_ssg
+            },
+        }
+
+        return json.dumps(data)
