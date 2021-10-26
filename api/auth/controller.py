@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 from flask_restx import Namespace, Resource, fields
 
 from api.auth.service import AuthService
@@ -21,10 +21,8 @@ class AuthRegister(Resource):
     @Auth.doc(responses={200: 'Success'})
     @Auth.doc(responses={409: 'Duplicated user'})
     def post(self):
-        email = request.json['email']
-        password = request.json['password']
-        username = request.json['username']
-        return AuthService.signup({username, email, password})
+        data = jsonify(request.form).json
+        return AuthService.signup(data)
 
 
 @Auth.route('/login')
@@ -34,6 +32,7 @@ class AuthLogin(Resource):
     @Auth.doc(responses={401: 'UnAuthorized'})
     @Auth.doc(responses={404: 'User Not Found'})
     def post(self):
-        email = request.json['email']
-        password = request.json['password']
+        data = jsonify(request.form).json
+        email = data['email']
+        password = data['password']
         return AuthService.login_with_email(email, password)
