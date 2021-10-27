@@ -77,25 +77,25 @@ class CrawlingService:
         # print(a_ssg)
         # print(price_ssg)
 
-        data = {
-            "google": {
+        data = [
+            {
                 "title": title_google,
                 "picture": picture_google,
                 "link": a_google,
                 "price": price_google
             },
-            "coupang": {
+            {
                 "title": title_coupang,
                 "picture": picture_coupang,
                 "link": a_coupang,
                 "price": price_coupang
             },
-            "ssg": {
+            {
                 "title": title_ssg,
                 "picture": picture_ssg,
                 "link": a_ssg,
                 "price": price_ssg
             },
-        }
+        ]
 
         return json.dumps(data)
