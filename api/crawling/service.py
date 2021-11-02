@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import json
-
+from serpapi.google_search import GoogleSearch
 
 class CrawlingService:
     def __init__(self):
@@ -13,24 +13,52 @@ class CrawlingService:
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"}
 
         # =========== GOOGLE SHOPPING ===========
+        params = {
+            "api_key": "db3de68874af1fa63f59ef58ef4443c64494af93f00a59302cbd5a11dcfe292a",
+            "engine": "google",
+            "q": search_input,
+            "location_requested": "Seoul, Seoul, South Korea",
+            "location_used": "Seoul,Seoul,South Korea",
+            "google_domain": "google.co.kr",
+            "hl": "ko",
+            "gl": "kp",
+            "tbm": "shop"
+        }
+
+        search = GoogleSearch(params)
+        results = search.get_dict()
+
+        item = results['shopping_results'][0]
+
         try:
-            link_google = 'https://www.google.com/search?q=' + search_query + '&rlz=1C5CHFA_enKR893KR893&biw=1280&bih=689&tbm=shop&sxsrf=AOaemvJ5m8WvwuNJE78HxodXTvD6wLXzCg%3A1632900081294&ei=8RNUYauXEfS-3LUPyb6EGA&oq=adidas+yeezy&gs_lcp=Cgtwcm9kdWN0cy1jYxADMgQIIxAnMgQIIxAnMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyCAgAEIAEEIsDMggIABCABBCLAzIICAAQgAQQiwM6BAgAEBhQoBVYoBVgkxhoAHAAeACAAY4CiAHxBJIBBTAuMi4xmAEAoAEBuAEBwAEB&sclient=products-cc&ved=0ahUKEwjr07Hq0qPzAhV0H7cAHUkfAQMQ4dUDCAs&uact=5'
-            source_google = requests.get(link_google).text
-
-            soup_google = BeautifulSoup(source_google, 'lxml')
-
-            item_google = soup_google.find('div', class_='KZmu8e')
-            title_google = item_google.find(
-                'div', class_='sh-np__product-title translate-content').text
-            picture_google = item_google.img['src']
-            # a_google = item_google.find('a', class_='shntl sh-np__click-target')['href']
-            a_google = item_google.find('a')['href']
-            price_google = item_google.find('b', class_='translate-content').text
+            title_google = item["title"]
         except:
             title_google = "N/A"
+
+        try:
+            picture_google = item["thumbnail"]
+        except:
             picture_google = "N/A"
+
+        try:
+            a_google = item["product_link"]
+        except:
             a_google = "N/A"
+
+        try:
+            price_google = item["extracted_price"]
+        except:
             price_google = "N/A"
+
+        try:
+            rating_google = item["rating"]
+        except:
+            rating_google = "N/A"
+
+        try:
+            reviews_google = item["reviews"]
+        except:
+            reviews_google = "N/A"
 
         # =========== COUPANG ===========
         link_coupang = 'https://www.coupang.com/np/search?component=&q=' + \
@@ -47,7 +75,18 @@ class CrawlingService:
         a_coupang = 'http://coupang.com' + \
             item_coupang.find('a', class_='search-product-link')['href']
         price_coupang = item_coupang.find('strong', class_='price-value').text
+        
+        try:
+            reviews_coupang = item_coupang.find(
+                'span', class_='rating-total-count').text[1:-1]  # returns with
+        except:
+            reviews_coupang = "N/A"
 
+        try:
+            rating_coupang = item_coupang.find('em', class_='rating').text
+        except:
+            rating_coupang = "N/A"
+            
         # =========== SSG ===========
         search_query_ssg = search_input.replace(" ", '%20')
         link_ssg = 'http://www.ssg.com/search.ssg?target=all&query=' + \
@@ -56,10 +95,7 @@ class CrawlingService:
         source_ssg = requests.get(link_ssg, headers=headers).text
 
         soup_ssg = BeautifulSoup(source_ssg, 'lxml')
-
-        item_coupang = soup_coupang.find(
-            'ul', {"id": "productList"}).find_all('li')[1]
-
+        
         item_ssg = soup_ssg.find('ul', {"id": "idProductImg"}).find('li')
         title_ssg = item_ssg.find('em', class_='tx_en').text
         picture_ssg = item_ssg.img['src']
@@ -67,26 +103,44 @@ class CrawlingService:
             item_ssg.find('div', class_='cunit_info').find('a')['href']
         price_ssg = item_ssg.find('div', class_='cunit_price notranslate').find(
             'em', class_='ssg_price').text
+        try:
+            reviews_ssg = item_ssg.find('span', class_='rate_tx').find('em').text
+        except:
+            reviews_ssg = "N/A"
 
+        try:
+            rating_ssg = item_ssg.find('div', class_='rating').find(
+                'span', class_="blind").text[3:-1]
+        except:
+            rating_ssg = "N/A"
+            
+        # =========== Setting up JSON file ===========
+        
         data = [
             {
                 "title": title_google,
                 "picture": picture_google,
                 "link": a_google,
-                "price": price_google
+                "price": price_google.
+                "rating": rating_google,
+                "reviews": reviews_google
             },
             {
                 "title": title_coupang,
                 "picture": picture_coupang,
                 "link": a_coupang,
-                "price": price_coupang
+                "price": price_coupang,
+                "rating": rating_coupang,
+                "reviews": reviews_coupang
             },
             {
                 "title": title_ssg,
                 "picture": picture_ssg,
                 "link": a_ssg,
-                "price": price_ssg
-            },
+                "price": price_ssg,
+                "rating": rating_ssg,
+                "reviews": reviews_ssg
+            }
         ]
 
         return json.dumps(data, indent=4)
