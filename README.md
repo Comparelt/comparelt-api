@@ -28,6 +28,9 @@ So they shouldn't have models.py
 
 test / test.py is unittest code for checking API function.
 
+app.py > compareIt.py (renamed)
+
+
 ## TODO List
 
 - [X] Link Flask with PostgreSQL
