@@ -34,6 +34,7 @@ test / test.py is unittest code for checking API function.
 - [x] Product DataBase Model
 - [x] User DataBase Model
 - [x] Auth(Login / SignUp) API
+//going to add code from here
 - [ ] User API
   - [ ] Get User Data
   - [ ] Edit User Data
