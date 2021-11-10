@@ -7,7 +7,7 @@
     flask db migrate // Only for first time
     flask db upgrade // After migrate 
     
-    Run api/app.py
+    flask run
 
 ## Description Detail
 Refactored Every Part to MVC ( Model, View, Controller ) Pattern.  
@@ -15,7 +15,7 @@ Refactored Every Part to MVC ( Model, View, Controller ) Pattern.
 Enter api directory and there will be 4 directories which is Auth(Login / SignUo Part),   
 Crawling, Product, User, test, and __ _init_ __.py, app.py. 
 
-- comparelt.py: Run API Server code is added in here.
+- app.py: Run API Server code is added in here.
 - api /__init __.py: DataBase models imported on here.
   
 In User, and Product directory, there are models.py, service.py, controller.py  
@@ -28,7 +28,6 @@ So they shouldn't have models.py
 
 test / test.py is unittest code for checking API function.
 
-app.py > compareIt.py (renamed)
 
 
 ## TODO List
