@@ -27,7 +27,7 @@ class AuthService:
     @staticmethod
     def signup(user):
         from api.user.models import User
-        from api.comparelt import db
+        from api.app import db
         database_user = User.query.filter_by(email=user['email']).first()
         if database_user:
             return {"message": "Duplicated user"}, 409
