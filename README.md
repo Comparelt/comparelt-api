@@ -41,7 +41,7 @@ ___going to add code from here
 - [ ] User API
   - [ ] Get User Data
   - [ ] Edit User Data
-  - [ ] Resign user
+  - [x] Resign user
 - [x] Crawling API & Crawling Function
 - [ ] Product API
     - [ ] Valid duplicate Product by Title
