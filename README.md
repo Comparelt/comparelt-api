@@ -40,9 +40,14 @@ test / test.py is unittest code for checking API function.
 ___going to add code from here
 - [ ] User API
   - [ ] Get User Data
+  - Get User Data means if the frontend request to backend about user's data with user id, the          backend will find user in database with the given user id. And if there is the same id in            database, the server will return found user's data to frontend by json type like { id: 1,             username: 'Han', email:"dku@dku.com", etc }.
   - [ ] Edit User Data
+  - Edit User data means for example, If i edit my username from 'Han' to 'HyunTaek' in frontend, the     frontend will send request to backend with user data in json type with the changed username           like {id: 1, username: 'HyunTaek', email:"dku@dku.com", etc }. And the backend will update           user by first finding the user from database with id in given json data. With the found user,         the backend will update all the data given.
   - [x] Resign user
 - [x] Crawling API & Crawling Function
 - [ ] Product API
     - [ ] Valid duplicate Product by Title
+    - Valid duplicate doesn't include crawling. It will just return true or false
     - [ ] Get Product Data
+    - Returns Product data from the database to the front end
+   
