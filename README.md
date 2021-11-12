@@ -42,7 +42,7 @@ ___going to add code from here
   - [ ] Get User Data
   - [ ] Edit User Data
   - [ ] Resign user
-- [ ] Crawling API & Crawling Function
+- [x] Crawling API & Crawling Function
 - [ ] Product API
     - [ ] Valid duplicate Product by Title
     - [ ] Get Product Data
