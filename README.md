@@ -36,8 +36,6 @@ test / test.py is unittest code for checking API function.
 - [x] Product DataBase Model
 - [x] User DataBase Model
 - [x] Auth(Login / SignUp) API
-
-___going to add code from here
 - [ ] User API
   - [ ] Get User Data
   - Get User Data means if the frontend request to backend about user's data with user id, the          backend will find user in database with the given user id. And if there is the same id in            database, the server will return found user's data to frontend by json type like { id: 1,             username: 'Han', email:"dku@dku.com", etc }.
