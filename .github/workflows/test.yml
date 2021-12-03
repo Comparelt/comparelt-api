@@ -1,0 +1,36 @@
+name: flask unnittest
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        python-version: [ 3.7, 3.8, 3.9 ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up pip env
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Generate Environment Variables File
+        run: |
+          echo "DATABASE_URL=$DATABASE_URL" >> .env
+          echo "ENV=$ENV" >> .env
+
+        env:
+          DATABASE_URL: ${{secrets.DATABASE_URL}}
+          ENV: ${{secrets.ENV}}
+
+      - name: Install requirements
+        run: pip install -r requirements.txt
+
+      - name: Run Test
+        run: python main.py test
